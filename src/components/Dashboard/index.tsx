@@ -36,6 +36,7 @@ const Dashboard = () => {
 
   const fetchData = (lType: string | null, start: any, end: any) => {
     var queryObject = {};
+    console.log(label);
     if (!lType) {
       lType = params.get("launchType");
     }
@@ -61,12 +62,10 @@ const Dashboard = () => {
     }).then((res) => {
       console.log(res.data);
       setData(
-        res.data
-          .filter((d: any) => d.launch_success || d.upcoming)
-          .map((d: any, index: number) => ({
-            ...d,
-            key: d.flight_number + index,
-          }))
+        res.data.map((d: any, index: number) => ({
+          ...d,
+          key: d.flight_number + index,
+        }))
       );
       setLoading(false);
     });
