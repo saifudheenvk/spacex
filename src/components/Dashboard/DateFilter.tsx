@@ -41,7 +41,6 @@ const DateFilter: FC<IProps> = ({
   const history = useHistory();
   const params: URLSearchParams = useQuery();
   const handlePicker = (start: any, end: any, label: any) => {
-    fetchData(null, start, end);
     const tLabel = label
       ? label
       : `From ${toDateString(new Date(start), false)} To ${toDateString(
@@ -51,8 +50,9 @@ const DateFilter: FC<IProps> = ({
     params.set("startDate", start.toString());
     params.set("endDate", end.toString());
     params.set("label", tLabel);
-    history.push({ search: params.toString() });
     setlabel(tLabel);
+    fetchData(null, start, end);
+    history.push({ search: params.toString() });
   };
 
   return (
@@ -86,8 +86,8 @@ const DateFilter: FC<IProps> = ({
               moment().subtract(2, "year").startOf("year"),
               moment().subtract(1, "year").endOf("year"),
             ],
-            "Past 20 year": [
-              moment().subtract(20, "year").startOf("year"),
+            "Past Launches": [
+              moment().subtract(200, "year").startOf("year"),
               moment().subtract(1, "year").endOf("year"),
             ],
           },
